@@ -5,16 +5,14 @@
  *
  */
 
-// TODO: Make a request to Gemini API to translate prompt to 10 different languages and return response in JSON format. 
+// TODO: Make a request to Gemini API to translate prompt to 10 different languages and return response in JSON format.
 
-import { GoogleGenerativeAI } from "@google/generative-ai"; 
-import {
-  HarmCategory,
-  HarmBlockThreshold,
-} from "@google/generative-ai/dist/types";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
+import * as dotenv from "dotenv";
 
-const API_KEY = process.env.API_KEY ?? "YOUR_API_KEY";
-console.log(API_KEY);
+dotenv.config(); 
+const API_KEY: string = process.env.API ?? "";
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 /**
@@ -43,7 +41,7 @@ const _safetySettings = [
  * ====================================
  */
 
-const model: string = "gemini-1.0-pro-latest";
+const model = "gemini-1.0-pro-latest";
 
 const AI = genAI.getGenerativeModel({
   model,
@@ -57,7 +55,8 @@ const AI = genAI.getGenerativeModel({
 
 async function run() {
   try {
-    const prompt = "You have brains in your head, you have feet in your shoes, you can steer yourself, any direction you choose, you're on your own, and you know what you know, and YOU are the guy who'll decide where to go."
+    const prompt =
+      "You have brains in your head, you have feet in your shoes, you can steer yourself, any direction you choose, you're on your own, and you know what you know, and YOU are the guy who'll decide where to go.";
     const result = await AI.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
