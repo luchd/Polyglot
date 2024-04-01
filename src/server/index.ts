@@ -55,15 +55,16 @@ const AI = genAI.getGenerativeModel({
  */
 
 async function run() {
-  try {
-    const prompt =
-      "You have brains in your head, you have feet in your shoes, you can steer yourself, any direction you choose, you're on your own, and you know what you know, and YOU are the guy who'll decide where to go.";
-    const result = await AI.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    try {
+        const prompt =
+            "Given the following sentence: 'You have brains in your head, you have feet in your shoes, you can steer yourself, any direction you choose, you're on your own' Translate the sentence to spanish, french, german, and vietnamese. IMPORTANT! Return the response in a JSON format";
+        const result = await AI.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+        console.log("Unclean Text: ", text);
 
-    const cleanText = cleanJsonString(text);
-    console.log("Clean Text at Index 0 ", cleanText.slice(0, 3));
+      const cleanText = cleanJsonString(text);
+      console.log("Clean Text: ", cleanText); 
     console.log("Gemini JSON response: ", JSON.parse(text));
 
     process.exit(0);
