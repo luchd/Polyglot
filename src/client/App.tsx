@@ -1,5 +1,8 @@
 import React from 'react';
-import './index.css'
+import './index.css';
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8080/");
 
 const App: React.FC = () => {
   return (
