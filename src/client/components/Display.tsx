@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react'
-
-import Input from "./Input";
+import React, { useState, useEffect } from 'react';
+import Input from './Input';
 import MessageList from './MessageList';
-
-import {getMessages, Messages} from '../services/messageService'
+import { getMessages, Messages } from '../services/messageService';
 
 const Display = () => {
-  const [messages, setMessages] = useState<Messages>([]) 
+  const [messages, setMessages] = useState<Messages>([]);
+
+  const loadMessages = () => {
+    const newMessages = getMessages();
+    setMessages(newMessages);
+  };
 
   useEffect(() => {
-    const loadMessages = async () => {
-      const messages = await getMessages()
-      setMessages(messages);
-    }
-    loadMessages()
-  }, [])
+    loadMessages();
+  }, []);
+
   return (
     <div>
       <MessageList messages={messages} />
-      <Input />
+      <Input setMessages={setMessages} />
     </div>
-  )
-}
+  );
+};
 
-export default Display
+export default Display;

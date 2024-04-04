@@ -1,5 +1,5 @@
 export type Message = {
-  id: number;
+  id?: number;
   messageBody: string;
   messageSender: string;
   messageLanguage: "ENG"
@@ -29,17 +29,11 @@ const messages : Messages = [
     messageSentTime: new Date()},
 ]
 
-export const getMessages = () : Promise<Messages> => {
-  return new Promise((resolve, reject)=> resolve(messages))
+export const getMessages = () : Messages => {
+  return messages;
 }
 
 export const addMessage = (message: Message) : Promise<Messages> => {
-  const newMessage : Message = {
-    id: messages.length,
-    messageBody: message
-    messageSender: "Bobby", 
-    messageLanguage: "ENG", 
-    messageSentTime: new Date()}, 
-  }
-  messages.push(message);
+  message.id = messages.length;
+  return new Promise((resolve) => resolve(messages));
 }
